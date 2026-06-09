@@ -1,36 +1,21 @@
-import { AlertCircle, RefreshCw } from 'lucide-react';
-import { Button } from '../ui/Button';
-import { cn } from '../../lib/utils';
+import React from 'react';
+import { Card, CardContent } from '../ui/Card';
 
-interface ErrorStateProps {
-  message: string;
-  onRetry?: () => void;
-  className?: string;
-}
-
-export function ErrorState({ message, onRetry, className }: ErrorStateProps) {
+export function ErrorState({ message, onRetry }: { message: string; onRetry?: () => void }) {
   return (
-    <div className={cn('flex flex-col items-center justify-center text-center p-8 space-y-4', className)}>
-      <AlertCircle className="h-12 w-12 text-destructive" />
-      <div className="space-y-1">
-        <p className="text-lg font-medium text-foreground">Something went wrong</p>
-        <p className="text-muted-foreground">{message}</p>
-      </div>
-      {onRetry && (
-        <Button variant="outline" onClick={onRetry} size="sm">
-          <RefreshCw className="mr-2 h-4 w-4" />
-          Try again
-        </Button>
-      )}
-    </div>
-  );
-}
-
-export function ErrorInline({ message }: { message: string }) {
-  return (
-    <div className="flex items-center gap-2 p-3 text-sm text-destructive bg-destructive/10 rounded-lg">
-      <AlertCircle className="h-4 w-4 flex-shrink-0" />
-      <span>{message}</span>
-    </div>
+    <Card className="flex flex-col items-center justify-center min-h-[300px] border-[#ffd1da] bg-[#fff8f9]">
+      <CardContent className="flex flex-col items-center justify-center p-12 text-center">
+        <h3 className="text-lg font-bold text-[#c13515] mb-2">Something went wrong</h3>
+        <p className="text-[#222222] mb-6 max-w-md">{message}</p>
+        {onRetry && (
+          <button 
+            onClick={onRetry} 
+            className="text-sm font-semibold text-[#c13515] underline hover:text-[#b32505]"
+          >
+            Try again
+          </button>
+        )}
+      </CardContent>
+    </Card>
   );
 }
