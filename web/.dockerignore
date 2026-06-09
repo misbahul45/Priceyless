@@ -1,0 +1,12 @@
+node_modules
+dist
+.output
+.netlify
+.git
+.gitignore
+Dockerfile
+.env
+.env.*
+coverage
+npm-debug.log
+pnpm-debug.log
