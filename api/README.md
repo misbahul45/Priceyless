@@ -1,98 +1,212 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Priceyless API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Backend API untuk Priceyless menggunakan NestJS, Prisma, PostgreSQL, JWT, Zod validation, Winston logging, Helmet, dan Jest E2E testing.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Tech Stack
 
-## Description
+- NestJS
+- TypeScript
+- Prisma
+- PostgreSQL
+- JWT Auth
+- Passport JWT
+- Zod
+- Winston
+- Helmet
+- Jest
+- Supertest
+- Docker
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Features
 
-## Project setup
+- Register user
+- Login user
+- Get current user
+- Role-based access control
+- Public category list/detail
+- Admin category create/update/delete
+- Public product list/detail
+- Admin product create/update/delete
+- Global response format
+- Global error format
+- Zod validation pipe
+- Request logging
+- Prisma exception handling
+- E2E tests
 
-```bash
-$ pnpm install
+## Project Structure
+
+```txt
+src/
+├── common/
+│   ├── filters/
+│   ├── interceptors/
+│   ├── logger/
+│   ├── pipes/
+│   ├── schemas/
+│   └── utils/
+├── config/
+├── database/
+├── v1/
+│   ├── auth/
+│   ├── users/
+│   ├── categories/
+│   └── products/
+├── app.module.ts
+├── app.setup.ts
+└── main.ts
 ```
 
-## Compile and run the project
+## Environment Variables
+
+| Variable           | Required | Example                             | Description           |
+| ------------------ | -------- | ----------------------------------- | --------------------- |
+| NODE_ENV           | Yes      | development                         | App environment       |
+| PORT               | No       | 3000                                | App port              |
+| DATABASE_URL       | Yes      | postgresql://...                    | PostgreSQL connection |
+| JWT_SECRET         | Yes      | change-this-secret-minimum-16-chars | JWT secret            |
+| JWT_EXPIRES_IN     | No       | 1d                                  | JWT expiration        |
+| BCRYPT_SALT_ROUNDS | No       | 10                                  | Bcrypt salt rounds    |
+| CORS_ORIGIN        | No       | *                                   | Allowed CORS origin   |
+
+## Installation
 
 ```bash
-# development
-$ pnpm run start
-
-# watch mode
-$ pnpm run start:dev
-
-# production mode
-$ pnpm run start:prod
+pnpm install
 ```
 
-## Run tests
+## Setup Database
 
 ```bash
-# unit tests
-$ pnpm run test
-
-# e2e tests
-$ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
+cp .env.example .env
+pnpm prisma generate
+pnpm prisma migrate dev
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+For production-style migration deployment:
 
 ```bash
-$ pnpm install -g @nestjs/mau
-$ mau deploy
+pnpm prisma migrate deploy
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## Run Development
 
-## Resources
+```bash
+pnpm dev
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+## Run Production
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+```bash
+pnpm build
+pnpm start:prod
+```
 
-## Support
+## Run Tests
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+pnpm test
+pnpm test:e2e
+pnpm run test:e2e:debug
+```
 
-## Stay in touch
+Correct debug command:
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```bash
+pnpm exec jest --config ./test/jest-e2e.json --detectOpenHandles --runInBand
+```
 
-## License
+Do not pass an extra `--` before the Jest flags.
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+## API Response Format
+
+Success:
+
+```json
+{
+  "status": "success",
+  "message": "Request successful",
+  "data": {}
+}
+```
+
+Error:
+
+```json
+{
+  "status": "error",
+  "message": "Validation failed",
+  "error": {
+    "code": "BAD_REQUEST",
+    "details": []
+  }
+}
+```
+
+## Auth Endpoints
+
+| Method | Endpoint          | Auth         | Description   |
+| ------ | ----------------- | ------------ | ------------- |
+| POST   | /v1/auth/register | Public       | Register user |
+| POST   | /v1/auth/login    | Public       | Login user    |
+| GET    | /v1/auth/me       | Bearer token | Current user  |
+
+## Category Endpoints
+
+| Method | Endpoint           | Auth   | Description     |
+| ------ | ------------------ | ------ | --------------- |
+| GET    | /v1/categories     | Public | List categories |
+| GET    | /v1/categories/:id | Public | Category detail |
+| POST   | /v1/categories     | ADMIN  | Create category |
+| PATCH  | /v1/categories/:id | ADMIN  | Update category |
+| DELETE | /v1/categories/:id | ADMIN  | Delete category |
+
+## Product Endpoints
+
+| Method | Endpoint         | Auth   | Description    |
+| ------ | ---------------- | ------ | -------------- |
+| GET    | /v1/products     | Public | List products  |
+| GET    | /v1/products/:id | Public | Product detail |
+| POST   | /v1/products     | ADMIN  | Create product |
+| PATCH  | /v1/products/:id | ADMIN  | Update product |
+| DELETE | /v1/products/:id | ADMIN  | Delete product |
+
+## Example Login
+
+```bash
+curl -X POST http://localhost:3000/v1/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"admin@example.com","password":"password123"}'
+```
+
+## Troubleshooting
+
+### Jest says No tests found
+
+Use:
+
+```bash
+pnpm exec jest --config ./test/jest-e2e.json --detectOpenHandles --runInBand
+```
+
+Do not use:
+
+```bash
+pnpm run test:e2e -- --detectOpenHandles --runInBand
+```
+
+### Jest did not exit
+
+Check:
+
+- `afterAll` calls `await app.close()`
+- `DatabaseService` closes Prisma and the PG pool
+- No unclosed timers/listeners remain
+
+### API cannot connect database
+
+Check `DATABASE_URL` and make sure PostgreSQL is running.
+
+### JWT error
+
+Make sure `JWT_SECRET` exists and has at least 16 characters.

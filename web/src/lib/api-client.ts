@@ -23,6 +23,7 @@ export class ApiClientError extends Error {
 
   constructor(message: string, statusCode: number, code?: string, details?: unknown[]) {
     super(message);
+    this.name = 'ApiClientError';
     this.statusCode = statusCode;
     this.code = code;
     this.details = details;
@@ -51,7 +52,6 @@ async function request<T>(
     if (res.status === 401) {
       clearAuthSession();
     }
-
     throw new ApiClientError(
       json?.message || 'Request failed',
       res.status,

@@ -1,11 +1,12 @@
-import { Navigate, Outlet } from '@tanstack/react-router';
+import { Navigate } from '@tanstack/react-router';
 import { getAccessToken, getStoredUser } from './auth-storage';
+import React from 'react';
 
 export function RequireAuth({ children }: { children: React.ReactNode }) {
   const token = getAccessToken();
 
   if (!token) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/login" replace />;
   }
 
   return <>{children}</>;
@@ -16,24 +17,22 @@ export function RequireAdmin({ children }: { children: React.ReactNode }) {
   const user = getStoredUser();
 
   if (!token) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/login" replace />;
   }
 
   if (user?.role !== 'ADMIN') {
-    return <Navigate to="/dashboard" />;
+    return <Navigate to="/dashboard" replace />;
   }
 
   return <>{children}</>;
 }
 
-export function AuthLayoutRoute({ children }: { children: React.ReactNode }) {
+export function RedirectIfAuthenticated({ children }: { children: React.ReactNode }) {
+  const token = getAccessToken();
+
+  if (token) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
   return <>{children}</>;
-}
-
-export function DashboardLayoutRoute({ children }: { children: React.ReactNode }) {
-  return <RequireAuth>{children}</RequireAuth>;
-}
-
-export function AdminLayoutRoute({ children }: { children: React.ReactNode }) {
-  return <RequireAdmin>{children}</RequireAdmin>;
 }

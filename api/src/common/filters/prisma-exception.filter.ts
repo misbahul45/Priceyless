@@ -6,7 +6,8 @@ import {
   Logger,
 } from '@nestjs/common';
 import { Prisma } from '../../../generated/prisma/client';
-import { Response } from 'express';
+import { Request, Response } from 'express';
+import { env } from '../../config/env';
 
 @Catch(Prisma.PrismaClientKnownRequestError)
 export class PrismaExceptionFilter implements ExceptionFilter {
@@ -50,7 +51,7 @@ export class PrismaExceptionFilter implements ExceptionFilter {
       message: message,
       error: {
         code,
-        details: [exception.meta],
+        details: env.NODE_ENV === 'production' ? [] : [exception.meta],
       },
     });
   }
