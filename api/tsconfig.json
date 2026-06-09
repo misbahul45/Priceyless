@@ -22,5 +22,15 @@
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
     "types": ["node", "jest"]
-  }
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "generated",
+    "test",
+    "prisma",
+    "prisma.config.ts",
+    "**/*.spec.ts"
+  ]
 }
