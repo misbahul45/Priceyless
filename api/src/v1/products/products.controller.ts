@@ -1,8 +1,23 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { ProductsService } from './products.service';
-import { createProductSchema, updateProductSchema } from './schemas/product.schema';
+import {
+  createProductSchema,
+  updateProductSchema,
+} from './schemas/product.schema';
 import { uuidParamSchema } from '../../common/schemas/params.schema';
-import type { CreateProductDto, UpdateProductDto } from './schemas/product.schema';
+import type {
+  CreateProductDto,
+  UpdateProductDto,
+} from './schemas/product.schema';
 import type { UuidParamDto } from '../../common/schemas/params.schema';
 import { ZodValidationPipe } from '../../common/pipes/zod-validation.pipe';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -17,11 +32,14 @@ export class ProductsController {
   @Post()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.ADMIN)
-  async create(@Body(new ZodValidationPipe(createProductSchema)) createProductDto: CreateProductDto) {
+  async create(
+    @Body(new ZodValidationPipe(createProductSchema))
+    createProductDto: CreateProductDto
+  ) {
     const product = await this.productsService.create(createProductDto);
     return {
       message: 'Product created successfully',
-      data: product
+      data: product,
     };
   }
 
@@ -30,16 +48,18 @@ export class ProductsController {
     const products = await this.productsService.findAll();
     return {
       message: 'Products fetched successfully',
-      data: products
+      data: products,
     };
   }
 
   @Get(':id')
-  async findOne(@Param(new ZodValidationPipe(uuidParamSchema)) params: UuidParamDto) {
+  async findOne(
+    @Param(new ZodValidationPipe(uuidParamSchema)) params: UuidParamDto
+  ) {
     const product = await this.productsService.findOne(params.id);
     return {
       message: 'Product fetched successfully',
-      data: product
+      data: product,
     };
   }
 
@@ -47,25 +67,30 @@ export class ProductsController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.ADMIN)
   async update(
-    @Param(new ZodValidationPipe(uuidParamSchema)) params: UuidParamDto, 
-    @Body(new ZodValidationPipe(updateProductSchema)) updateProductDto: UpdateProductDto
+    @Param(new ZodValidationPipe(uuidParamSchema)) params: UuidParamDto,
+    @Body(new ZodValidationPipe(updateProductSchema))
+    updateProductDto: UpdateProductDto
   ) {
-    const product = await this.productsService.update(params.id, updateProductDto);
+    const product = await this.productsService.update(
+      params.id,
+      updateProductDto
+    );
     return {
       message: 'Product updated successfully',
-      data: product
+      data: product,
     };
   }
 
   @Delete(':id')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.ADMIN)
-  async remove(@Param(new ZodValidationPipe(uuidParamSchema)) params: UuidParamDto) {
+  async remove(
+    @Param(new ZodValidationPipe(uuidParamSchema)) params: UuidParamDto
+  ) {
     await this.productsService.remove(params.id);
     return {
       message: 'Product deleted successfully',
-      data: null
+      data: null,
     };
   }
 }
-

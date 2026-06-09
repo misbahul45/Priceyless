@@ -11,7 +11,7 @@ export const winstonConfig = WinstonModule.createLogger({
         winston.format.colorize(),
         winston.format.printf(({ timestamp, level, message, context, ms }) => {
           return `[Nest] - ${timestamp} ${level} [${context || 'Application'}] ${message} ${ms}`;
-        }),
+        })
       ),
     }),
     new winston.transports.DailyRotateFile({
@@ -23,7 +23,7 @@ export const winstonConfig = WinstonModule.createLogger({
       maxFiles: '14d',
       format: winston.format.combine(
         winston.format.timestamp(),
-        winston.format.json(),
+        winston.format.json()
       ),
     }),
   ],

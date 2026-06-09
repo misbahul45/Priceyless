@@ -20,10 +20,7 @@ export class DatabaseService
 
     super({
       adapter,
-      log:
-        env.NODE_ENV === 'test'
-          ? ['error']
-          : ['info', 'warn', 'error'],
+      log: env.NODE_ENV === 'test' ? ['error'] : ['info', 'warn', 'error'],
     });
 
     this.pool = pool;

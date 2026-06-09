@@ -10,9 +10,10 @@ export const createProductSchema = z.object({
 
 export type CreateProductDto = z.infer<typeof createProductSchema>;
 
-export const updateProductSchema = createProductSchema.partial().refine(
-  (data) => Object.keys(data).length > 0,
-  { message: 'At least one field is required' },
-);
+export const updateProductSchema = createProductSchema
+  .partial()
+  .refine((data) => Object.keys(data).length > 0, {
+    message: 'At least one field is required',
+  });
 
 export type UpdateProductDto = z.infer<typeof updateProductSchema>;

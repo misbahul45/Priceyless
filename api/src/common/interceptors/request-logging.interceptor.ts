@@ -17,9 +17,10 @@ export class RequestLoggingInterceptor implements NestInterceptor {
     const request = context.switchToHttp().getRequest<Request>();
     const { method, originalUrl, ip } = request;
     const userAgent = request.get('user-agent') || '';
-    
+
     // Attempt to safely extract user ID without breaking types if user is undefined
-    const userId = (request as any).user?.id || (request as any).user?.userId || 'anonymous';
+    const userId =
+      (request as any).user?.id || (request as any).user?.userId || 'anonymous';
 
     const startTime = Date.now();
 
@@ -32,7 +33,7 @@ export class RequestLoggingInterceptor implements NestInterceptor {
           const duration = Date.now() - startTime;
 
           this.logger.log(
-            `${method} ${originalUrl} ${statusCode} ${contentLength || 0}B - ${duration}ms - IP: ${ip} - User: ${userId} - UA: ${userAgent}`,
+            `${method} ${originalUrl} ${statusCode} ${contentLength || 0}B - ${duration}ms - IP: ${ip} - User: ${userId} - UA: ${userAgent}`
           );
         },
         error: (error) => {
@@ -40,10 +41,10 @@ export class RequestLoggingInterceptor implements NestInterceptor {
           const duration = Date.now() - startTime;
 
           this.logger.error(
-            `${method} ${originalUrl} ${statusCode} - ${duration}ms - IP: ${ip} - User: ${userId} - Error: ${error.message}`,
+            `${method} ${originalUrl} ${statusCode} - ${duration}ms - IP: ${ip} - User: ${userId} - Error: ${error.message}`
           );
         },
-      }),
+      })
     );
   }
 }

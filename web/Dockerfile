@@ -3,7 +3,7 @@ FROM node:22-alpine AS base
 # Install pnpm
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable
+RUN corepack enable && corepack prepare pnpm@10.24.0 --activate
 
 WORKDIR /app
 
@@ -28,18 +28,13 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 
-# Copy built assets
-# Note: TanStack Start usually outputs to .output or dist depending on the adapter
-COPY --from=builder /app/.output ./.output
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/pnpm-lock.yaml ./pnpm-lock.yaml
 
 # If using a node-based adapter, we might need node_modules
 COPY --from=builder /app/node_modules ./node_modules
 
 EXPOSE 3000
 
-# Fallback to vite preview if no start script, 
-# but ideally TanStack Start should run from the built server output.
-# For Docker, 'vite preview' is often used for local testing.
-CMD ["pnpm", "run", "preview", "--port", "3000", "--host"]
+CMD ["pnpm", "run", "preview", "--port", "3000", "--host", "0.0.0.0"]

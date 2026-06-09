@@ -8,7 +8,9 @@ export class ProductsService {
 
   async create(dto: CreateProductDto) {
     // Check if category exists
-    const category = await this.prisma.category.findUnique({ where: { id: dto.categoryId } });
+    const category = await this.prisma.category.findUnique({
+      where: { id: dto.categoryId },
+    });
     if (!category) throw new NotFoundException('Category not found');
 
     return this.prisma.product.create({
@@ -34,8 +36,10 @@ export class ProductsService {
   async update(id: string, dto: UpdateProductDto) {
     await this.findOne(id);
     if (dto.categoryId) {
-        const category = await this.prisma.category.findUnique({ where: { id: dto.categoryId } });
-        if (!category) throw new NotFoundException('Category not found');
+      const category = await this.prisma.category.findUnique({
+        where: { id: dto.categoryId },
+      });
+      if (!category) throw new NotFoundException('Category not found');
     }
     return this.prisma.product.update({
       where: { id },
@@ -50,4 +54,3 @@ export class ProductsService {
     });
   }
 }
-

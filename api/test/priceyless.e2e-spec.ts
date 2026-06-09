@@ -1,6 +1,6 @@
 import { INestApplication } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import * as request from 'supertest';
+import request from 'supertest';
 import { DatabaseService } from '../src/database/database.service';
 import { createTestApp } from './helpers/create-test-app';
 

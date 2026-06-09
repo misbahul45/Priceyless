@@ -41,7 +41,7 @@ export class PrismaExceptionFilter implements ExceptionFilter {
       default:
         this.logger.error(
           `${request.method} ${request.url} - ${exception.code} - ${exception.message}`,
-          exception.stack,
+          exception.stack
         );
         break;
     }

@@ -19,4 +19,3 @@ import { env } from '../../config/env';
   exports: [AuthService],
 })
 export class AuthModule {}
-

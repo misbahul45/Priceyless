@@ -12,8 +12,12 @@ export class ZodValidationPipe implements PipeTransform {
 
   transform(value: unknown, metadata: ArgumentMetadata) {
     // We only want to validate body, query, and param
-    if (metadata.type !== 'body' && metadata.type !== 'query' && metadata.type !== 'param') {
-        return value;
+    if (
+      metadata.type !== 'body' &&
+      metadata.type !== 'query' &&
+      metadata.type !== 'param'
+    ) {
+      return value;
     }
 
     const result = this.schema.safeParse(value);

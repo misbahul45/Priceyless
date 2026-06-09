@@ -38,7 +38,7 @@ export class ResponseInterceptor implements NestInterceptor {
           message: 'Request successful',
           data: response ?? null,
         };
-      }),
+      })
     );
   }
 }

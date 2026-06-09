@@ -1,4 +1,9 @@
-import { Injectable, UnauthorizedException, ConflictException, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  UnauthorizedException,
+  ConflictException,
+  Logger,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 import * as bcrypt from 'bcrypt';
@@ -11,14 +16,16 @@ export class AuthService {
 
   constructor(
     private usersService: UsersService,
-    private jwtService: JwtService,
+    private jwtService: JwtService
   ) {}
 
   async register(dto: RegisterDto) {
     this.logger.log(`Registering new user: ${dto.email}`);
     const existingUser = await this.usersService.findOneByEmail(dto.email);
     if (existingUser) {
-      this.logger.warn(`Registration failed: Email ${dto.email} already exists`);
+      this.logger.warn(
+        `Registration failed: Email ${dto.email} already exists`
+      );
       throw new ConflictException('Email already exists');
     }
 
@@ -54,4 +61,3 @@ export class AuthService {
     };
   }
 }
-

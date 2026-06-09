@@ -1,6 +1,13 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { DatabaseService } from '../../database/database.service';
-import { CreateCategoryDto, UpdateCategoryDto } from './schemas/category.schema';
+import {
+  CreateCategoryDto,
+  UpdateCategoryDto,
+} from './schemas/category.schema';
 
 @Injectable()
 export class CategoriesService {
@@ -40,11 +47,13 @@ export class CategoriesService {
       where: { id },
       include: { _count: { select: { products: true } } },
     });
-    
+
     if (!category) throw new NotFoundException('Category not found');
-    
+
     if (category._count.products > 0) {
-      throw new BadRequestException('Cannot delete category with associated products');
+      throw new BadRequestException(
+        'Cannot delete category with associated products'
+      );
     }
 
     return this.prisma.category.delete({
@@ -52,4 +61,3 @@ export class CategoriesService {
     });
   }
 }
-

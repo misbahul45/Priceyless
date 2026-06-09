@@ -29,8 +29,8 @@ export class HttpExceptionFilter implements ExceptionFilter {
       if (Array.isArray(exceptionResponse.errors)) {
         details = exceptionResponse.errors;
       } else if (Array.isArray(exceptionResponse.message)) {
-          details = exceptionResponse.message;
-          message = 'Validation failed';
+        details = exceptionResponse.message;
+        message = 'Validation failed';
       }
     } else if (status === HttpStatus.UNAUTHORIZED) {
       code = 'UNAUTHORIZED';
@@ -45,7 +45,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     if (status >= 500) {
       this.logger.error(
         `${request.method} ${request.url} - ${status} - ${exception.message}`,
-        exception.stack,
+        exception.stack
       );
     }
 
