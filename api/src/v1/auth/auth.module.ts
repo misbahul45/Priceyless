@@ -11,7 +11,7 @@ import { env } from '../../config/env';
     PassportModule,
     JwtModule.register({
       secret: env.JWT_SECRET,
-      signOptions: { expiresIn: env.JWT_EXPIRES_IN },
+      signOptions: { expiresIn: env.JWT_EXPIRES_IN as any },
     }),
   ],
   providers: [AuthService, JwtStrategy],

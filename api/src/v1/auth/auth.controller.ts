@@ -1,7 +1,8 @@
 import { Controller, Post, Body, HttpCode, HttpStatus, Get, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ZodValidationPipe } from '../../common/pipes/zod-validation.pipe';
-import { registerSchema, RegisterDto, loginSchema, LoginDto } from './schemas/auth.schema';
+import { registerSchema, loginSchema } from './schemas/auth.schema';
+import type { RegisterDto, LoginDto } from './schemas/auth.schema';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { GetUser } from './decorators/get-user.decorator';
 import { UsersService } from '../users/users.service';

@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { User } from '../../generated/prisma/client';
+import { User } from '../../../generated/prisma/client';
 import { DatabaseService } from '../../database/database.service';
 
 const userSafeSelect = {

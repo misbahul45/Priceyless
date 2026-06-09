@@ -1,7 +1,9 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
-import { createCategorySchema, CreateCategoryDto, updateCategorySchema, UpdateCategoryDto } from './schemas/category.schema';
-import { uuidParamSchema, UuidParamDto } from '../../common/schemas/params.schema';
+import { createCategorySchema, updateCategorySchema } from './schemas/category.schema';
+import { uuidParamSchema } from '../../common/schemas/params.schema';
+import type { CreateCategoryDto, UpdateCategoryDto } from './schemas/category.schema';
+import type { UuidParamDto } from '../../common/schemas/params.schema';
 import { ZodValidationPipe } from '../../common/pipes/zod-validation.pipe';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
