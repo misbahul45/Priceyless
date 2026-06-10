@@ -46,7 +46,7 @@ services:
         condition: service_healthy
     networks:
       - app_network
-    command: sh -c "pnpm prisma migrate deploy && node dist/src/main.js"
+    command: sh -c "pnpm prisma migrate deploy && node dist/main.js"
 
   web:
     build:
